@@ -49,21 +49,25 @@ def load_model():
         print(f"❌ Error cargando el modelo: {str(e)}")
         return None
 
-# 📦 Cargar el modelo al iniciar la app
-svd_model = None
+# 📦 Cargar el modelo al iniciar la app (CRÍTICO PARA PERFORMANCE)
+print("🚀 Iniciando carga del modelo...")
+svd_model = load_model()
+print(f"✅ Modelo cargado: {svd_model is not None}")
 
 @app.route('/')
 def home():
     return render_template('index.html')
 
+@app.route('/health')
+def health():
+    """Health check para Railway"""
+    return {"status": "healthy", "model_loaded": svd_model is not None}
+
 @app.route('/predict', methods=['POST'])
 def predict():
     global svd_model
     
-    # Cargar modelo si no está en memoria
-    if svd_model is None:
-        svd_model = load_model()
-    
+    # Ya no cargamos el modelo aquí - se carga al inicio
     if svd_model is None:
         return render_template('result.html',
                                 user_id="N/A",
