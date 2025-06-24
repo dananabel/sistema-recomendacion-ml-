@@ -5,3 +5,5 @@ scikit-surprise==1.1.4
 pandas==2.2.2
 scipy==1.13.1
 gunicorn==21.2.0
+requests==2.32.3
+gdown==5.2.0
