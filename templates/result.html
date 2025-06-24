@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Resultado de la Predicción</h1>
+        
+        <div class="result-card">
+            <div class="result-item">
+                <strong>🧑‍💼 ID de Usuario:</strong> {{ user_id }}
+            </div>
+            <div class="result-item">
+                <strong>📦 ID de Producto:</strong> {{ product_id }}
+            </div>
+            <div class="result-item">
+                <strong>⭐ Rating Estimado:</strong> 
+                <span class="prediction-value">{{ prediction }}</span>
+            </div>
+        </div>
+        
+        <a href="/" class="button">🔄 Nueva Predicción</a>
+    </div>
+</body>
+</html>
