@@ -14,15 +14,17 @@ import gdown
 
 app = Flask(__name__)
 
-# 🔗 URL de tu modelo en Google Drive (REEMPLAZA CON TU ENLACE)
-GOOGLE_DRIVE_URL = "https://drive.google.com/file/d/1KAsHO0E0Bw_Lz5w5JReb34nTniKC7vdA/view?usp=sharing"
+# 🔗 ID de tu modelo en Google Drive
+GOOGLE_DRIVE_FILE_ID = "1KAsHO0E0Bw_Lz5w5JReb34nTniKC7vdA"
 
 def download_model():
     """Descarga el modelo desde Google Drive si no existe localmente"""
     if not os.path.exists("svd_modelo.pkl"):
         print("📥 Descargando modelo desde Google Drive...")
         try:
-            gdown.download(GOOGLE_DRIVE_URL, "svd_modelo.pkl", quiet=False)
+            # Formato correcto para gdown
+            gdown.download(f"https://drive.google.com/uc?id={GOOGLE_DRIVE_FILE_ID}", 
+                          "svd_modelo.pkl", quiet=False)
             print("✅ Modelo descargado exitosamente")
         except Exception as e:
             print(f"❌ Error descargando modelo: {str(e)}")
@@ -99,4 +101,4 @@ if __name__ == "__main__":
     app.run(debug=True, port=5000)
 else:
     # Para Railway - EXACTAMENTE como dice la documentación
-    app.run(debug=True, port=os.getenv("PORT", default=5000))
+    app.run(debug=False, host='0.0.0.0', port=int(os.getenv("PORT", 5000)))
